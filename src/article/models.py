@@ -8,11 +8,14 @@ class Article(models.Model):
     content = RichTextField()
     created_date = models.DateTimeField(auto_now_add=True,verbose_name="Creation Date")
     article_image = models.FileField(blank = True,null = True,verbose_name="Add Photo to Article")
+
     def __str__(self):
         return self.title
 
     class Meta:
         ordering = ['-created_date']
+
+
 class Comment(models.Model):
     article = models.ForeignKey(Article,on_delete = models.CASCADE,verbose_name = "Article",related_name="comments")
     comment_author = models.CharField(max_length = 50,verbose_name = "Name")
@@ -22,3 +25,16 @@ class Comment(models.Model):
         return self.comment_content
     class Meta:
         ordering = ['-comment_date']
+
+
+class Like(models.Model):
+    likes = models.ForeignKey(Article, on_delete = 'CASCADE')
+
+
+class Repository(models.Model):
+    repo_name =  models.CharField(max_length = 50)
+    repo_url =  models.CharField(max_length = 100)
+    repo_dec =  models.TextField(max_length = 200)
+
+
+

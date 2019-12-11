@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              
+              <tbody>
+               
+                {% for i in users_list %}
+                <tr>
+                  <td>{{ i.username }}</td>
+                  <td><a href="{{ i.repo_url }}" target="_blank">Add Friend</a></td>
+                 
+                </tr>
+                {% endfor %}
+              
+               
+              </tbody>
+            </table>
+          </div>
+          
+  </main>
+{% endblock %}

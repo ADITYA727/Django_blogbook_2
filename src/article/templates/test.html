@@ -1,0 +1,153 @@
+% extends "layout.html" %}
+
+{% block body %}
+
+
+
+
+
+<style type="text/css">
+	button.like{
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	line-heigth: 50px;
+	border-radius: 50%;
+	color: rgba(0,150,136 ,1);
+	background-color:rgba(38,166,154 ,0.3);
+	border-color: rgba(0,150,136 ,1);
+	border-width: 1px;
+	font-size: 15px;
+}
+
+button.dislike{
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+	line-heigth: 50px;
+	border-radius: 50%;
+	color: rgba(255,82,82 ,1);
+	background-color: rgba(255,138,128 ,0.3);
+	border-color: rgba(255,82,82 ,1);
+	border-width: 1px;
+	font-size: 15px;
+}
+
+button.learnmore{
+	width: 100%;
+	padding: 10px;
+	border: none;
+	background: rgba(0,151,167 ,1);
+	border-radius: 5px;
+	text-transform: uppercase;
+	font-size: 16px;
+	color: #fff;
+	letter-spacing: 1px;
+}
+
+</style>
+
+<div class ="row">
+    
+        <div class="col-md-10 offset-md-3">
+            <div class="col-lg-8">
+                <h3>Articles</h3>
+                <hr>
+                </div>
+        </div>
+</div>
+<div class ="row">
+    <div class="col-md-12 offset-md-3" >
+    
+            <form>
+                 {% csrf_token %} 
+                <input type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="Enter Keyword..." style="width: 500px;height: 40px;">
+              <button type="submit" class="btn btn-danger" style="width: 100px;height: 40px;">Now</button>
+            </form>
+     
+    </div>
+
+</div>
+
+
+{% if articles %}
+
+{% for article in articles %}
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      <a href="{% url 'article:detail' article.id %}"><h2 class="mt-4">{{article.title}}</h2></a> 
+        
+      <!-- Author -->
+     
+      <!-- Preview Image -->
+      {% if article.article_image %}
+      <a href="{% url 'article:detail' article.id %}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt=""></a>
+    
+      {% endif %}
+     
+ <p class="lead">
+        
+      <strong>Published by</strong>  {{ article.author.username}} at {{article.created_date}}
+      </p>
+
+      <hr>
+      <button class="likebutton like">
+	<i class="likebutton fa fa-thumbs-o-up" id="{{ article.id }}" aria-hidden="true"></i>
+</button>
+      <button class="dislike">
+	<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+</button>
+<p class="inner"><strong>{{get_likes}}</strong></p>
+
+
+      <!-- Date/Time -->
+      <p></p>
+      <hr>
+      <hr>
+
+      <!-- Post Content -->
+      <p class="lead">
+          {{article.content|safe|truncatewords:50}}
+      </p>
+
+      <a style ="float : right;" href="{% url 'article:detail' article.id %}" class ="btn btn-danger">Read more</a>
+      <hr>
+         
+        </div>
+      </div>
+      </div>
+
+{% endfor %}
+
+
+{% else %}
+<div class ="row">
+    
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+<div class = "alert alert-danger">
+   No Articles Found
+</div>
+</div>
+</div>
+</div>
+
+
+{% endif %}
+
+
+<!-- <p>
+        {% if request.user.is_authenticated %}
+                Sign In, {{request.user.username}}
+        {% else %}
+               Not logged in
+        {% endif %}
+
+</p> -->
+{% endblock body %}
+

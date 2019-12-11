@@ -1,20 +1,59 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 
-{% block body %}
+{% block main %}
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-11 pt-3 px-4">
+         
+           
 
-<div class="jumbotron text-center">
-        <h3>Welcome to the Software Science Blog</h3>
-        <p>As developers on this blog you can share your blog posts and help people..</p>
-</div>
+   <div class="container">
+            <div class="row">
+              <div class="col-lg-5">
+                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h6>Your Activity</h6>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div>
+          </div>
+                <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+              </div>
 
-
-<p>
-        {% if request.user.is_authenticated %}
-                Sign In, {{request.user.username}}
-        {% else %}
-               Not logged in
-        {% endif %}
-
-</p>
-{% endblock body %}
-
+              <div class="col-lg-7">
+                 <h6>Project Details</h6>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+               <a class = "btn btn-danger" href="{% url 'article:git_hub'  %}">Create</a>
+               <hr>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Project Name</th>
+                  <th>Project URL</th>
+                  <th>Project Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in repo_list %}
+                <tr>
+                  <td>*</td>
+                  <td>{{ i.repo_name }}</td>
+                  <td><a href="{{ i.repo_url }}" target="_blank">Go For Download</a></td>
+                  <td>{{ i.repo_dec }}</td>
+                </tr>
+                {% endfor %}
+              
+               
+              </tbody>
+            </table>
+          </div>
+              </div>
+            </div>
+          </div>
+          </main>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+
+
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+   <form class="form-signin" method="post">
+      {% csrf_token %}
+     
+     
+      <input type="text" id="inputEmail" name="repo_name" class="form-control" placeholder="Project Name" required autofocus>
+     <br/>
+      <input type="text" id="inputEmail" name="repo_url" class="form-control" placeholder="Project Url:" required autofocus>
+      <br/>
+      <textarea  type="text" id="inputEmail" name="repo_dec" class="form-control" placeholder="Project Description:" required autofocus></textarea>
+       <br/>
+      
+      <button class="btn btn-primary" type="submit">Create Project</button>
+    
+    </form>
+  </main>
+
+{% endblock main %}
